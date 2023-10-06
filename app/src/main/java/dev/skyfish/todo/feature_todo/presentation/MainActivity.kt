@@ -1,4 +1,4 @@
-package dev.skyfish.todo
+package dev.skyfish.todo.feature_todo.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
