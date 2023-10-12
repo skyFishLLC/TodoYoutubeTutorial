@@ -1,7 +1,7 @@
 package dev.skyfish.todo.feature_todo.domain.util
 
 sealed class TodoItemOrder(
-    val sortingDirection: SortingDirection,
+    var sortingDirection: SortingDirection,
     val showArchived: Boolean
 ){
     class Title(sortingDirection: SortingDirection, showArchived: Boolean): TodoItemOrder(sortingDirection, showArchived)
@@ -11,8 +11,8 @@ sealed class TodoItemOrder(
     fun copy(sortingDirection: SortingDirection, showArchived: Boolean): TodoItemOrder {
         return when(this){
             is Title -> Title(sortingDirection, showArchived)
-            is Time -> Title(sortingDirection, showArchived)
-            is Completed -> Title(sortingDirection, showArchived)
+            is Time -> Time(sortingDirection, showArchived)
+            is Completed -> Completed(sortingDirection, showArchived)
         }
     }
 }

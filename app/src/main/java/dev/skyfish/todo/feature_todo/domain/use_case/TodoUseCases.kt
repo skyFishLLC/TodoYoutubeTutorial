@@ -42,7 +42,7 @@ class TodoUseCases @Inject constructor(
     }
 
     suspend fun getTodoItems(
-        todoItemOrder: TodoItemOrder = TodoItemOrder.Time(SortingDirection.Down, true)
+        todoItemOrder: TodoItemOrder,// = TodoItemOrder.Time(SortingDirection.Down, true)
     ): TodoUseCaseResult{
         var todos = repo.getAllTodosFromLocalCache()
 

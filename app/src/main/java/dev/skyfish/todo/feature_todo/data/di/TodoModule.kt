@@ -10,6 +10,9 @@ import dagger.hilt.components.SingletonComponent
 import dev.skyfish.todo.feature_todo.data.local.TodoDao
 import dev.skyfish.todo.feature_todo.data.local.TodoDatabase
 import dev.skyfish.todo.feature_todo.data.remote.TodoApi
+import dev.skyfish.todo.feature_todo.data.repo.TodoListRepoImpl
+import dev.skyfish.todo.feature_todo.domain.repo.TodoListRepo
+import kotlinx.coroutines.CoroutineDispatcher
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -50,4 +53,11 @@ object TodoModule {
             "todo_database"
         ).fallbackToDestructiveMigration().build()
     }
+
+    @Provides
+    @Singleton
+    fun providesTodoRepo(db: TodoDatabase, api: TodoApi, @IoDispatcher dispatcher: CoroutineDispatcher): TodoListRepo {
+        return TodoListRepoImpl(db.dao, api, dispatcher)
+    }
+
 }

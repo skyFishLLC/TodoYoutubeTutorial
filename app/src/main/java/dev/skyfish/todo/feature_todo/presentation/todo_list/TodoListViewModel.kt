@@ -10,6 +10,7 @@ import dev.skyfish.todo.feature_todo.data.di.IoDispatcher
 import dev.skyfish.todo.feature_todo.domain.model.TodoItem
 import dev.skyfish.todo.feature_todo.domain.use_case.TodoUseCaseResult
 import dev.skyfish.todo.feature_todo.domain.use_case.TodoUseCases
+import dev.skyfish.todo.feature_todo.domain.util.SortingDirection
 import dev.skyfish.todo.feature_todo.domain.util.TodoItemOrder
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -22,7 +23,8 @@ class TodoListViewModel @Inject constructor(
     private val todoUseCases: TodoUseCases,
     @IoDispatcher private val dispatcher: CoroutineDispatcher
 ) : ViewModel() {
-    private val _state = mutableStateOf(TodoListState())
+    private val _state = mutableStateOf(TodoListState(todoItemOrder = TodoItemOrder.Time(
+        SortingDirection.Down, true)))
     val state: State<TodoListState> = _state
 
     private var undoTodoItem: TodoItem? = null
@@ -34,6 +36,7 @@ class TodoListViewModel @Inject constructor(
             isLoading = false
         )
     }
+
 
     fun onEvent(event: TodoListEvent){
         when(event){

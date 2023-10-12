@@ -8,7 +8,7 @@ plugins {
 
 android {
     namespace = "dev.skyfish.todo"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "dev.skyfish.todo"
