@@ -13,13 +13,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.HiltAndroidApp
 import dev.skyfish.todo.feature_todo.presentation.todo_list.TodoListScreen
 import dev.skyfish.todo.feature_todo.presentation.todo_list.TodoListViewModel
+import dev.skyfish.todo.feature_todo.presentation.todo_new_update.TodoNewUpdateScreen
+import dev.skyfish.todo.feature_todo.presentation.todo_new_update.TodoNewUpdateViewModel
 import dev.skyfish.todo.feature_todo.presentation.util.Screen
 import dev.skyfish.todo.ui.theme.TodoTheme
 
@@ -36,7 +40,6 @@ class MainActivity : ComponentActivity() {
                 ) {
                     val navController = rememberNavController()
                     val listViewModel: TodoListViewModel = hiltViewModel()
-
                     NavHost(
                         navController = navController,
                         startDestination = Screen.TodoItemListScreen.route,
@@ -47,8 +50,20 @@ class MainActivity : ComponentActivity() {
                                 viewModel = listViewModel
                             )
                         }
-                        composable(route = Screen.TodoNewUpdateScreen.route){
-                            //TODO
+                        composable(
+                                route = Screen.TodoNewUpdateScreen.route + "?todoId={todoId}",
+                                arguments = listOf(
+                                    navArgument(
+                                        name = "todoId"
+                                    ){
+                                        type = NavType.IntType
+                                        defaultValue = -1
+                                    }
+                                )
+                            ){
+                                TodoNewUpdateScreen(
+                                    navController = navController
+                                )
                         }
                     }
                 }

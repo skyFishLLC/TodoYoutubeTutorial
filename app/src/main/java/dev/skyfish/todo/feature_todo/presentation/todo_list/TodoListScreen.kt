@@ -56,6 +56,7 @@ import dev.skyfish.todo.core.util.ContentDescriptions
 import dev.skyfish.todo.core.util.TodoListStrings
 import dev.skyfish.todo.feature_todo.presentation.todo_list.components.SortingDrawerOptions
 import dev.skyfish.todo.feature_todo.presentation.todo_list.components.TodoItemCard
+import dev.skyfish.todo.feature_todo.presentation.util.Screen
 import kotlinx.coroutines.launch
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -109,7 +110,7 @@ fun TodoListScreen(
         Scaffold(
             floatingActionButton = {
                 FloatingActionButton(onClick = {
-                    /*TODO*/
+                    navController.navigate(Screen.TodoNewUpdateScreen.route)
                 },
                     shape = CircleShape,
                     containerColor = MaterialTheme.colorScheme.primary
@@ -204,9 +205,9 @@ fun TodoListScreen(
                                     viewModel.onEvent(TodoListEvent.ToggleArchived(todo))
                                 },
                                 onCardClick = {
-                                    /*navController.navigate(
-                                        //TODO
-                                    )*/
+                                    navController.navigate(
+                                        Screen.TodoNewUpdateScreen.route + "?todoId=${todo.id}"
+                                    )
                                 }
                             )
                         }
